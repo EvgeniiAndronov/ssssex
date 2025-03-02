@@ -9,6 +9,8 @@ mod vga_buffer;
 mod serial;
 use core::{fmt, panic::PanicInfo};
 
+use vga_buffer::WRITER;
+
 
 #[cfg(test)]
 pub fn test_runner(tests: &[&dyn Testable]) {
@@ -37,7 +39,7 @@ where
     fn run(&self) {
         serial_print!("{}...\t", core::any::type_name::<T>());
         self();
-        serial_println!(" [ok]");
+        serial_println!("[ok]");
     }
 }
 
@@ -72,9 +74,21 @@ fn trivial_assertation() {
     assert_eq!(1, 1);
 }
 
+#[test_case]
+fn test_println_simple() {
+    println!("test_println_simple output");
+}
+
+#[test_case]
+fn test_println_many() {
+    for _ in 0..200 {
+        println!("test_println_many output");
+    }
+}
+
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    println!(" Hello World{}", "!");
+    println!("Hello World{}", "!");
     #[cfg(test)]
     test_main();
     loop {}

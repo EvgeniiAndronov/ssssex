@@ -20,6 +20,16 @@ pub fn _print(args: fmt::Arguments) {
     WRITER.lock().write_fmt(args).unwrap();
 }
 
+#[test_case]
+fn test_println_output() {
+    let s = " Some test string that first single line";
+    println!("{}", s);
+    for (i, c) in s.chars().enumerate() {
+        let screen_char = WRITER.lock().buffer.chars[BUFFER_HEIGHT - 2][i].read();
+        assert_eq!(char::from(screen_char.ascii_character), c);
+    }
+}
+
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
@@ -116,7 +126,7 @@ impl Writer {
 
     fn new_line(&mut self) {
         for row in 1..BUFFER_HEIGHT {
-            for col in 1..BUFFER_WIDTH {
+            for col in 0..BUFFER_WIDTH {
                 let character = self.buffer.chars[row][col].read();
                 self.buffer.chars[row-1][col].write(character);
             }
