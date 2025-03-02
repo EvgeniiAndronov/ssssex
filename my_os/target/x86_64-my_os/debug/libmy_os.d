@@ -1,0 +1,1 @@
+/Users/evgenii/Desktop/Develop/Rust/LerRust/ssssex/my_os/target/x86_64-my_os/debug/libmy_os.rlib: /Users/evgenii/Desktop/Develop/Rust/LerRust/ssssex/my_os/src/lib.rs /Users/evgenii/Desktop/Develop/Rust/LerRust/ssssex/my_os/src/serial.rs /Users/evgenii/Desktop/Develop/Rust/LerRust/ssssex/my_os/src/vga_buffer.rs
