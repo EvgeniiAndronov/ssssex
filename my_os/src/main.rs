@@ -13,7 +13,17 @@ pub extern "C" fn _start() -> ! {
     println!("Start check system ....\n");
 
     my_os::init();
-    x86_64::instructions::interrupts::int3();
+    //провоцируется двойная ошиба
+    // unsafe {
+    //     *(0xdeadbeef as *mut u8) = 42;
+    // }
+    //вызывается ошибка переполнения стека, путем бесконечной рекурсии
+    // fn stack_overflow() {
+    //     stack_overflow();
+    // }
+    // stack_overflow();
+
+    // x86_64::instructions::interrupts::int3();
 
     #[cfg(test)]
     test_main();
