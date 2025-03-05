@@ -13,15 +13,6 @@ pub extern "C" fn _start() -> ! {
     println!("Start check system ....\n");
 
     my_os::init();
-    //провоцируется двойная ошиба
-    // unsafe {
-    //     *(0xdeadbeef as *mut u8) = 42;
-    // }
-    //вызывается ошибка переполнения стека, путем бесконечной рекурсии
-    // fn stack_overflow() {
-    //     stack_overflow();
-    // }
-    // stack_overflow();
 
     // x86_64::instructions::interrupts::int3();
 
@@ -29,14 +20,14 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("It did not crashed!");
-    loop {}
+    my_os::hlt_loop();
 }
 
 #[cfg(not(test))]
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    my_os::hlt_loop();
 }
 
 #[cfg(test)]
